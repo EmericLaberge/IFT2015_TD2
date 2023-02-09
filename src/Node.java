@@ -4,37 +4,39 @@ public class Node {
 
     public Node(int value) {
         this.value = value;
-        // TODO
     }
 
     public Node(int value, Node next) {
         this.value = value;
         this.next = next;
-        // TODO
     }
 
     public void addValue(int value) {
-        addNode(new Node(value));
-        // TODO
+        if (this.next == null) {
+            this.next = new Node(value, null);
+        } else {
+            this.next.addValue(value);
+        }
     }
 
     public void addNode(Node next) {
         if (this.next == null) {
             this.next = next;
             return;
+        } else {
+            this.next.addNode(next);
         }
-        this.next.addNode(next);
-        // TODO
     }
 
     public void removeLast() {
-        if (this.next == null) {// FIXME
-        } else if (this.next.next == null) {
-            this.next = null;
-            return;
+        if (this.next != null) {
         }
-        this.next.removeLast();
-        // TODO
+
+        // } else if (this.next.next == null) {
+        // this.next = null;
+        // return;
+        // }
+        // this.next.removeLast();
     }
 
     public void removeValue(int value) {
@@ -66,6 +68,7 @@ public class Node {
             this.next = this.next.next;
             return 1 + length_recurssion();
         }
+        return 0;
         // TODO
     }
 
