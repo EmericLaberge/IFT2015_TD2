@@ -69,8 +69,6 @@ public class Node {
         // TODO
     }
 
-    ic
-
     int returnNlast(int nLast) {
         // TODO
         return 0;
