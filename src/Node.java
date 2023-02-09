@@ -29,9 +29,13 @@ public class Node {
     }
 
     public void removeLast() {
-        if (this.next != null) {
+        if (this.next.next != null) {
+            this.next.removeLast();
+        }else{
+            this.next.next = null;
         }
 
+        // A voir !!
         // } else if (this.next.next == null) {
         // this.next = null;
         // return;
@@ -40,26 +44,30 @@ public class Node {
     }
 
     public void removeValue(int value) {
-        if (this.next == null) {
-            return;
-        } else if (this.next.value == value) {
-            while (this.next.next.value == value) {
+        if (this.next != null) {
+            if(this.next.value == value && this.next.next != null){
                 this.next = this.next.next;
+            }else{
+                this.next = null;
             }
         }
-        this.next.removeValue(value);
+        //} else if (this.next.value == value) {
+        //    while (this.next.next.value == value) {
+        //        this.next = this.next.next;
+        //    }
+        //}
+        //this.next.removeValue(value);
 
-        // TODO
     }
 
     public int length_iteratif() {
         int length = 0;
-        while (this.next != null) {
-            this.next = this.next.next;
+        Node current = this;
+        while (current.next != null) {
+            current = current.next;
             length++;
 
         }
-        // TODO
         return length;
     }
 
@@ -69,19 +77,15 @@ public class Node {
             return 1 + length_recurssion();
         }
         return 0;
-        // TODO
     }
 
     int returnNlast(int nLast) {
-        // TODO
         return 0;
     }
 
     public void addValue_ordered(int value) {
-        // TODO
     }
 
     public void insertSort() {
-        // TODO
     }
 }
