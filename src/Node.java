@@ -79,7 +79,7 @@ public class Node {
         return 0;
     }
 
-    int returnNlast(int nLast) {
+    public int returnNlast(int nLast) {
         return 0;
     }
 
@@ -88,4 +88,5 @@ public class Node {
 
     public void insertSort() {
     }
+
 }
