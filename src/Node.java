@@ -49,15 +49,27 @@ public class Node {
         // }
         // this.next.removeLast();
     }
-
+    
+    // Status : Works except cant remove first element
     public void removeValue(int value) {
-        if (this.next != null) {
-            if (this.next.value == value && this.next.next != null) {
+        if (this.next.next == null && this.next.value == value) {
+            this.next = null;
+        } else {
+            if (this.next.value == value) {
+                Node nodeToRemove = this.next;
                 this.next = this.next.next;
+                nodeToRemove.next = null;
             } else {
-                this.next = null;
+                this.next.removeValue(value);
             }
         }
+        //if (this.next != null) {
+        //    if (this.next.value == value && this.next.next != null) {
+        //        this.next = this.next.next;
+        //    } else {
+        //        this.next = null;
+        //    }
+        //}
         // } else if (this.next.value == value) {
         // while (this.next.next.value == value) {
         // this.next = this.next.next;
@@ -93,24 +105,47 @@ public class Node {
         return 0;
     }
 
-    //public int length_recurssion() {
-    //    if (this.next != null) {
-    //        this.next = this.next.next;
-    //        return 1 + length_recurssion();
-    //    }
-    //    return 0;
-    //}
+    // public int length_recurssion() {
+    // if (this.next != null) {
+    // this.next = this.next.next;
+    // return 1 + length_recurssion();
+    // }
+    // return 0;
+    // }
 
+    // Status : WORKS !
     public int returnNlast(int nLast) {
+        Node current = this;
+        int compteur = 1;
+        if (current.value == nLast) {
+            return compteur;
+        }
+        while (current.value == nLast && current.next == null) {
+
+        }
         return 0;
     }
 
+    // Status : Works except if we add 0 and 1 is first element
+    // Exemple : addValue_ordered(0) in (2-> 1-> 4-> 6-> 7-> 9-> null )
+    // Gives :(2-> 0-> 1-> 4-> 6-> 7-> 9-> null )
     public void addValue_ordered(int value) {
+        if (this.next == null) {
+            this.next = new Node(value, null);
+        } else {
+            if (this.next.value > value) {
+                Node nodeToAdd = new Node(value, this.next);
+                this.next = nodeToAdd;
+            } else {
+                this.next.addValue_ordered(value);
+            }
+        }
     }
 
     public void insertSort() {
     }
 
+    // Une fonction pour voir la linked list.
     public void print() {
         String word = "(";
         Node current = this;
