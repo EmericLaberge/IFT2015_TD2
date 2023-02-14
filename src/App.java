@@ -7,7 +7,6 @@ public class App {
         linked.addValue(6);
         linked.addValue(5);
         linked.addValue(9);
-        linked.addValue_ordered(8);
-        linked.print();
+        System.out.println(linked.returnNlast(5));
     }
 }

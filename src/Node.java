@@ -117,16 +117,14 @@ public class Node {
     public int returnNlast(int nLast) {
         Node current = this;
         int compteur = 1;
-        if (current.value == nLast) {
-            return compteur;
+        while (current.value != nLast && current.next != null){ 
+            current = current.next;
+            ++compteur;
         }
-        while (current.value == nLast && current.next == null) {
-
-        }
-        return 0;
+        return compteur;
     }
 
-    // Status : Works !! 
+    // Status : Works !!
     public void addValue_ordered(int value) {
         int nodeValue = this.value;
         if (value < nodeValue) {
