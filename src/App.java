@@ -5,9 +5,9 @@ public class App {
         linked.addValue(1);
         linked.addValue(4);
         linked.addValue(6);
-        linked.addValue(7);
+        linked.addValue(5);
         linked.addValue(9);
-        linked.removeValue(6);
+        linked.addValue_ordered(8);
         linked.print();
     }
 }

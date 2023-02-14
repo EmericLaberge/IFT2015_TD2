@@ -49,7 +49,7 @@ public class Node {
         // }
         // this.next.removeLast();
     }
-    
+
     // Status : Works except cant remove first element
     public void removeValue(int value) {
         if (this.next.next == null && this.next.value == value) {
@@ -63,13 +63,13 @@ public class Node {
                 this.next.removeValue(value);
             }
         }
-        //if (this.next != null) {
-        //    if (this.next.value == value && this.next.next != null) {
-        //        this.next = this.next.next;
-        //    } else {
-        //        this.next = null;
-        //    }
-        //}
+        // if (this.next != null) {
+        // if (this.next.value == value && this.next.next != null) {
+        // this.next = this.next.next;
+        // } else {
+        // this.next = null;
+        // }
+        // }
         // } else if (this.next.value == value) {
         // while (this.next.next.value == value) {
         // this.next = this.next.next;
@@ -126,16 +126,18 @@ public class Node {
         return 0;
     }
 
-    // Status : Works except if we add 0 and 1 is first element
-    // Exemple : addValue_ordered(0) in (2-> 1-> 4-> 6-> 7-> 9-> null )
-    // Gives :(2-> 0-> 1-> 4-> 6-> 7-> 9-> null )
+    // Status : Works !! 
     public void addValue_ordered(int value) {
-        if (this.next == null) {
-            this.next = new Node(value, null);
+        int nodeValue = this.value;
+        if (value < nodeValue) {
+            int tmp = nodeValue;
+            this.value = value;
+            value = tmp;
+            this.next = new Node(value, this.next);
+            return;
         } else {
-            if (this.next.value > value) {
-                Node nodeToAdd = new Node(value, this.next);
-                this.next = nodeToAdd;
+            if (this.next == null) {
+                this.next = new Node(value, null);
             } else {
                 this.next.addValue_ordered(value);
             }
@@ -143,6 +145,7 @@ public class Node {
     }
 
     public void insertSort() {
+        int length = this.length_recurssion();
     }
 
     // Une fonction pour voir la linked list.
