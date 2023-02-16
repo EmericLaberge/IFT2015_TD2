@@ -144,6 +144,8 @@ public class Node {
 
     public void insertSort() {
         int length = this.length_recurssion();
+        
+
     }
 
     // Une fonction pour voir la linked list.
