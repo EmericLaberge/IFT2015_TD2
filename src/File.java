@@ -69,7 +69,7 @@ public class File {
                     word = word + elements[i] + ",";
                 }
             }
-        }else{
+        } else {
             for (int i = start; i < end; i++) {
                 if (i == end - 1) {
                     word = word + elements[i];

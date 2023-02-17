@@ -151,16 +151,17 @@ public class Node {
     }
 
     public void insertSort() {
-        Node nodepremier = this;
-        Node current = this.next;
-        nodepremier.next = null;
-        while (current.next != null) {
-            System.out.println(current.value);
-            nodepremier.addValue_ordered(current.value);
-            if(current.next.next == null){
-                nodepremier.addValue_ordered(current.next.value);
+        if (this.next != null) {
+            Node nodepremier = this;
+            Node current = this.next;
+            nodepremier.next = null;
+            while (current.next != null) {
+                nodepremier.addValue_ordered(current.value);
+                current = current.next;
             }
-            current = current.next;
+            if(current.next == null){
+                nodepremier.addValue_ordered(current.value);
+            }
         }
     }
 
