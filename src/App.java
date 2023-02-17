@@ -11,16 +11,7 @@ public class App {
         for(int i = 0; i < 100; i++){
             file.push(i);
         }
-        file.pop();
-        file.pop();
-        file.push(56);
-        file.push(34);
-        
-        for(int i = 0; i < 97; i++){
-            file.pop();
-        }
-        System.out.println(file.start);
-        System.out.println(file.end);
+        file.remove(0);
 
         file.print();
     }

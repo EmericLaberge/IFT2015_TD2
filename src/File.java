@@ -62,7 +62,7 @@ public class File {
                     word = word + elements[i] + ",";
                 }
             }
-            if(end > 0){
+            if (end > 0) {
                 word += ",";
             }
             for (int i = 0; i < end; i++) {
@@ -100,6 +100,22 @@ public class File {
     }
 
     public void remove(int value) {
+        int x = 0;
+        if (start > end) {
+            for (int i = 1; i < elements.length - 1; i++) {
+                x = this.pop();
+                if (x != value) {
+                    this.push(x);
+                }
+            }
+        } else {
+            for (int i = 0; i < elements.length - 1; i++) {
+                x = this.pop();
+                if (x != value) {
+                    this.push(x);
+                }
+            }
+        }
         return;
     }
 }
