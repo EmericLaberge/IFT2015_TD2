@@ -13,7 +13,15 @@ public class App {
         }
         file.pop();
         file.pop();
-        file.push(167);
+        file.push(56);
+        file.push(34);
+        
+        for(int i = 0; i < 97; i++){
+            file.pop();
+        }
+        System.out.println(file.start);
+        System.out.println(file.end);
+
         file.print();
     }
 }

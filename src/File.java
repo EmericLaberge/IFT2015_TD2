@@ -20,7 +20,7 @@ public class File {
     public void push(int element) {
         if (this.size() == elements.length - 1) {
             // throw IllegalStateException;
-            System.out.println("La file est vide!");
+            System.out.println("La file est pleine!");
         } else {
             elements[end] = element;
             end = (end + 1) % elements.length;
@@ -56,11 +56,14 @@ public class File {
         String word = "(";
         if (start > end) {
             for (int i = start; i < elements.length; i++) {
-                if (i == start - 1) {
+                if (i == elements.length - 1) {
                     word = word + elements[i];
                 } else {
                     word = word + elements[i] + ",";
                 }
+            }
+            if(end > 0){
+                word += ",";
             }
             for (int i = 0; i < end; i++) {
                 if (i == end - 1) {
