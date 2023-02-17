@@ -10,7 +10,7 @@ public class File {
         return;
     }
 
-    // Fonction tirer des notes de cours
+    // Fonction tirée des notes de cours
     public int size() {
         return (end - start + elements.length) % elements.length;
     }
@@ -29,13 +29,13 @@ public class File {
 
     public int pop() {
         if (this.size() == 0) {
-            System.out.println("La file est vide, tu ne peux popper du vide");
+            System.out.println("Tu ne peux pas pop une liste vide!");
             return 0;
         } else {
-            int elementpopper = elements[start];
+            int elementToPop = elements[start];
             elements[start] = 0;
             start = (start + 1) % elements.length;
-            return elementpopper;
+            return elementToPop;
         }
     }
 
