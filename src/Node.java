@@ -52,15 +52,22 @@ public class Node {
 
     // Status : Works except cant remove first element
     public void removeValue(int value) {
-        if (this.next.next == null && this.next.value == value) {
-            this.next = null;
+        if (this.value == value) {
+            this.value = this.next.value;
+            this.next = this.next.next;
         } else {
-            if (this.next.value == value) {
-                Node nodeToRemove = this.next;
-                this.next = this.next.next;
-                nodeToRemove.next = null;
+
+            if (this.next.next == null && this.next.value == value) {
+                this.next = null;
             } else {
-                this.next.removeValue(value);
+                if (this.next.value == value) {
+                    Node nodeToRemove = this.next;
+                    this.next = this.next.next;
+                    nodeToRemove.next = null;
+                    return;
+                } else {
+                    this.next.removeValue(value);
+                }
             }
         }
         // if (this.next != null) {
@@ -115,13 +122,14 @@ public class Node {
 
     // Status : WORKS !
     public int returnNlast(int nLast) {
+        Node first = this;
         Node current = this;
         int compteur = 1;
-        while (current.value != nLast && current.next != null){ 
+        while (current.value != nLast && current.next != null) {
             current = current.next;
             ++compteur;
         }
-        return compteur;
+        return first.length_recurssion() - compteur + 1;
     }
 
     // Status : Works !!
@@ -143,9 +151,17 @@ public class Node {
     }
 
     public void insertSort() {
-        int length = this.length_recurssion();
-        
-
+        Node nodepremier = this;
+        Node current = this.next;
+        nodepremier.next = null;
+        while (current.next != null) {
+            System.out.println(current.value);
+            nodepremier.addValue_ordered(current.value);
+            if(current.next.next == null){
+                nodepremier.addValue_ordered(current.next.value);
+            }
+            current = current.next;
+        }
     }
 
     // Une fonction pour voir la linked list.

@@ -1,17 +1,24 @@
+import javax.xml.transform.Source;
+
 public class App {
     public static void main(String[] args) throws Exception {
-        // Vous pouvez tester votre code ici!
+        //Vous pouvez tester votre code ici!
         //Node linked = new Node(2, null);
         //linked.addValue(1);
         //linked.addValue(4);
         //linked.addValue(6);
         //linked.addValue(5);
         //linked.addValue(9);
-        //System.out.println(linked.returnNlast(5));
+        //linked.insertSort();
+        //linked.print();
 
         File file = new File();
-        file.push(1);
-        System.out.println(file.length());
+        for(int i = 0; i < 100; i++){
+            file.push(i);
+        }
+        file.pop();
+        file.pop();
+        file.push(167);
         file.print();
     }
 }

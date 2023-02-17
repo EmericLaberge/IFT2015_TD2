@@ -4,44 +4,39 @@ public class File {
     public int end;
 
     public File() {
-        elements = new int[100];
+        elements = new int[101];
         start = 0;
         end = 0;
         return;
     }
 
     // Fonction tirer des notes de cours
-    public int size(){
+    public int size() {
         return (end - start + elements.length) % elements.length;
     }
 
     // Status: Works ?(PS: not sure it works)
     // Can we use .length ?
     public void push(int element) {
-        if (this.size() != elements.length) {
+        if (this.size() == elements.length - 1) {
+            // throw IllegalStateException;
+            System.out.println("La file est vide!");
+        } else {
             elements[end] = element;
-            if (end % elements.length == end) {
-                end++;
-            } else {
-                end = 0;
-            }
+            end = (end + 1) % elements.length;
         }
     }
 
     public int pop() {
-        int tmp;
-        if (end - start != -1) {
-            tmp = elements[start];
+        if (this.size() == 0) {
+            System.out.println("La file est vide, tu ne peux popper du vide");
+            return 0;
+        } else {
+            int elementpopper = elements[start];
             elements[start] = 0;
-            start++;
-            if (start % elements.length != start) {
-                start = 0;
-            }
-            System.out.println(start);
-            System.out.println(end);
-            return tmp;
+            start = (start + 1) % elements.length;
+            return elementpopper;
         }
-        return 0;
     }
 
     // Status : Works!
@@ -61,14 +56,26 @@ public class File {
         String word = "(";
         if (start > end) {
             for (int i = start; i < elements.length; i++) {
-                word = word + elements[i] + ",";
+                if (i == start - 1) {
+                    word = word + elements[i];
+                } else {
+                    word = word + elements[i] + ",";
+                }
             }
-        }
-        for (int i = 0; i < end; i++) {
-            if (i == end - 1) {
-                word = word + elements[i];
-            } else {
-                word = word + elements[i] + ",";
+            for (int i = 0; i < end; i++) {
+                if (i == end - 1) {
+                    word = word + elements[i];
+                } else {
+                    word = word + elements[i] + ",";
+                }
+            }
+        }else{
+            for (int i = start; i < end; i++) {
+                if (i == end - 1) {
+                    word = word + elements[i];
+                } else {
+                    word = word + elements[i] + ",";
+                }
             }
         }
         word += ")";
@@ -77,18 +84,16 @@ public class File {
     }
 
     public boolean search(int element) {
-        boolean estDansListe;
-        for (int i = 0; i < elements.length; i++) {
-            if (this.pop() == element) {
+        boolean estDansListe = false;
+        int x = 0;
+        for (int i = 0; i < elements.length - 1; i++) {
+            x = this.pop();
+            if (x == element) {
                 estDansListe = true;
             }
+            this.push(x);
         }
-        // if (estDansListe) {
-        // for (int i = 0; i < elements.length; i++) {
-        // this.push(this.pop());
-        // }
-        // }
-        return false;
+        return estDansListe;
     }
 
     public void remove(int value) {
