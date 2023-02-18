@@ -16,6 +16,5 @@ public class App {
         //file.print();
 
         Grid grid = new Grid();
-        grid.print();
     }
 }

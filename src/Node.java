@@ -70,23 +70,6 @@ public class Node {
                 }
             }
         }
-        // if (this.next != null) {
-        // if (this.next.value == value && this.next.next != null) {
-        // this.next = this.next.next;
-        // } else {
-        // this.next = null;
-        // }
-        // }
-        // } else if (this.next.value == value) {
-        // while (this.next.next.value == value) {
-        // this.next = this.next.next;
-        // }
-        // }
-        // this.next.removeValue(value);
-
-        // if(this.value == value){
-        // this = this.next;
-        // }
     }
 
     // Status : WORKS!
