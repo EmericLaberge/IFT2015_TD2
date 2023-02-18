@@ -84,7 +84,7 @@ public class Grid {
         }
 
         for (int i = 0; i < tabCell.length; i++) {
-            
+
         }
     }
 
@@ -92,12 +92,46 @@ public class Grid {
     }
 
     public boolean move(Cell box) {
-        // TODO
-        return true;
+
+        if (box != null) {
+            if (box.valeur == -1) {
+                box.valeur = 1;
+                return true;
+            }
+            if (box.celluleBas.valeur == -1) {
+                box.celluleBas.valeur = box.valeur;
+                box.valeur = -1;
+                return true;
+            }
+            if (box.celluleDroite.valeur == -1) {
+                box.celluleDroite.valeur = box.valeur;
+                box.valeur = -1;
+                return true;
+            }
+            if (box.celluleGauche.valeur == -1) {
+                box.celluleGauche.valeur = box.valeur;
+                box.valeur = -1;
+                return true;
+            }
+            if (box.celluleHaut.valeur == -1) {
+                box.celluleHaut.valeur = box.valeur;
+                box.valeur = -1;
+                return true;
+            }
+            return false;
+        }
+        System.out.println("La cellule n'existe pas");
+        return false;
     }
 
     public boolean check_complete() {
-        // TODO
+        Cell current = head;
+        while (current != null) {
+            if (current.celluleBas.celluleBas.valeur != current.valeur) {
+                return false;
+            }
+            current = current.celluleDroite;
+        }
         return true;
     }
 
