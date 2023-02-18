@@ -7,12 +7,15 @@ public class App {
         //linked.removeValue(2);
         //linked.print();
 
-        File file = new File();
-        for(int i = 0; i < 100; i++){
-            file.push(i);
-        }
-        file.remove(0);
+        //File file = new File();
+        //for(int i = 0; i < 100; i++){
+        //    file.push(i);
+        //}
+        //file.remove(0);
 
-        file.print();
+        //file.print();
+
+        Grid grid = new Grid();
+        grid.print();
     }
 }
