@@ -3,11 +3,11 @@ import java.util.Random;
 public class Grid {
     public class Cell {
 
-        private int valeur;
-        private Cell celluleHaut;
-        private Cell celluleDroite;
-        private Cell celluleBas;
-        private Cell celluleGauche;
+        public int valeur;
+        public Cell celluleHaut;
+        public Cell celluleDroite;
+        public Cell celluleBas;
+        public Cell celluleGauche;
 
         public Cell(int valeur) {
             this.valeur = valeur;
@@ -17,11 +17,12 @@ public class Grid {
             celluleBas = null;
             return;
         }
+
     }
 
-    private int nbreRangee;
-    private int nbreColonnes;
-    private Cell head;
+    public int nbreRangee;
+    public int nbreColonnes;
+    public Cell head;
 
     public Grid() {
         nbreRangee = 3;
@@ -30,26 +31,6 @@ public class Grid {
     }
 
     private void CreerGrid(int rangee, int colonnes) {
-        // Cell next;
-        // Cell first = new Cell(0);
-        // for (int i = 0; i < rangee; i++) {
-        // Cell previous = first;
-        // for (int j = 0; j < colonnes - 1; j++) {
-        // next = new Cell(1);
-        // next.celluleGauche = previous;
-        // previous.celluleDroite = next;
-        // previous = next;
-        // }
-        // if(i != rangee - 1){
-        //
-        // }
-        // }
-        // head = first;
-
-        // Shuffle le array pour avoir un jeu randomize,
-        // J'ai pris ce code d'internet parce que on evalue
-        // comment creer un grid pas comment faire un shuffle,
-        // https://www.digitalocean.com/community/tutorials/shuffle-array-java
 
         int[] array = { -1, 25, 10, 10, 10, 10, 5, 5, 1, 1, 1, 1 };
 
@@ -79,48 +60,108 @@ public class Grid {
             tabCell[i].valeur = array[i];
         }
 
-        for (int i = 0; i < tabCell.length; i++) {
-            System.out.println(tabCell[i].valeur);
-        }
+        // Fonction pour print avant les assignations de references.
+        // for (int i = 0; i < tabCell.length; i++) {
+        // System.out.print(tabCell[i].valeur);
+        // System.out.print(" -> ");
+        // if ((i + 1) % 4 == 0) {
+        // System.out.println(" ");
+        // }
+        // }
 
-        for (int i = 0; i < tabCell.length; i++) {
+        assignerCelluleAuGrid(tabCell, 0, 4, false);
+        assignerCelluleAuGrid(tabCell, 4, 8, true);
+        assignerCelluleAuGrid(tabCell, 8, 12, false);
 
+        head = tabCell[0];
+    }
+
+    public void assignerCelluleAuGrid(Cell[] tableau, int indiceDebut, int indiceFin, boolean relierHautBas) {
+        for (int i = indiceDebut; i < indiceFin; i++) {
+            if (relierHautBas) {
+                tableau[i].celluleHaut = tableau[i - indiceDebut];
+                tableau[i - indiceDebut].celluleBas = tableau[i];
+                tableau[i].celluleBas = tableau[i + indiceDebut];
+                tableau[i + indiceDebut].celluleHaut = tableau[i];
+            }
+            if (i == indiceDebut) {
+                tableau[i].celluleDroite = tableau[i + 1];
+            } else {
+                if (i == indiceFin - 1) {
+                    tableau[i].celluleGauche = tableau[i - 1];
+                } else {
+                    tableau[i].celluleGauche = tableau[i - 1];
+                    tableau[i].celluleDroite = tableau[i + 1];
+                }
+            }
         }
     }
 
+    // Fonction print pour voir le jeu
     public void print() {
+        String word = "";
+        Cell current = head;
+
+        // Premiere rangee
+        for (int i = 0; i < 4; i++) {
+            word = word + current.valeur + " -> ";
+            if (current.celluleDroite != null) {
+                current = current.celluleDroite;
+            }
+        }
+
+        // On descend a la 2e.
+        current = head.celluleBas;
+        word += "\n";
+
+        // Deuxieme rangee
+        for (int i = 0; i < 4; i++) {
+            word = word + current.valeur + " -> ";
+            if (current.celluleDroite != null) {
+                current = current.celluleDroite;
+            }
+        }
+
+        // On descend vers la derniere rangee
+        current = head.celluleBas.celluleBas;
+        word += "\n";
+
+        // Troisieme rangee
+        for (int i = 0; i < 4; i++) {
+            word = word + current.valeur + " -> ";
+            if (current.celluleDroite != null) {
+                current = current.celluleDroite;
+            }
+        }
+        System.out.println("___________________");
+        System.out.println(word);
     }
 
     public boolean move(Cell box) {
 
         if (box != null) {
-            if (box.valeur == -1) {
-                box.valeur = 1;
-                return true;
-            }
-            if (box.celluleBas.valeur == -1) {
+            if (box.celluleBas != null && box.celluleBas.valeur == -1) {
                 box.celluleBas.valeur = box.valeur;
                 box.valeur = -1;
                 return true;
             }
-            if (box.celluleDroite.valeur == -1) {
+            if (box.celluleDroite != null && box.celluleDroite.valeur == -1) {
                 box.celluleDroite.valeur = box.valeur;
                 box.valeur = -1;
                 return true;
             }
-            if (box.celluleGauche.valeur == -1) {
+            if (box.celluleGauche != null && box.celluleGauche.valeur == -1) {
                 box.celluleGauche.valeur = box.valeur;
                 box.valeur = -1;
                 return true;
             }
-            if (box.celluleHaut.valeur == -1) {
+            if (box.celluleHaut != null && box.celluleHaut.valeur == -1) {
                 box.celluleHaut.valeur = box.valeur;
                 box.valeur = -1;
                 return true;
             }
             return false;
         }
-        System.out.println("La cellule n'existe pas");
         return false;
     }
 
@@ -135,7 +176,75 @@ public class Grid {
         return true;
     }
 
+    public Cell findX() {
+        int valeurDuX = -1;
+        Cell current = head;
+
+        for (int i = 0; i < 4; i++) {
+            if (current.valeur == valeurDuX) {
+                return current;
+            }
+            if (current.celluleDroite != null) {
+                current = current.celluleDroite;
+            }
+        }
+
+        current = head.celluleBas;
+
+        for (int i = 0; i < 4; i++) {
+            if (current.valeur == valeurDuX) {
+                return current;
+            }
+            if (current.celluleDroite != null) {
+                current = current.celluleDroite;
+            }
+        }
+
+        current = head.celluleBas.celluleBas;
+
+        for (int i = 0; i < 4; i++) {
+            if (current.valeur == valeurDuX) {
+                return current;
+            }
+            if (current.celluleDroite != null) {
+                current = current.celluleDroite;
+            }
+        }
+
+        return null;
+    }
+
     public void solve_game() {
-        // TODO
+        int random;
+        Cell celluleVide = findX();
+        while (!check_complete()) {
+
+            random = (int) (Math.random() * 4 + 1);
+
+            switch (random) {
+                case 1:
+                    if (this.move(celluleVide.celluleHaut)) {
+                        celluleVide = celluleVide.celluleHaut;
+                    }
+                    break;
+                case 2:
+                    if (this.move(celluleVide.celluleDroite)) {
+                        celluleVide = celluleVide.celluleDroite;
+                    }
+                    break;
+                case 3:
+                    if (this.move(celluleVide.celluleBas)) {
+                        celluleVide = celluleVide.celluleBas;
+                    }
+                    break;
+                case 4:
+                    if (this.move(celluleVide.celluleGauche)) {
+                        celluleVide = celluleVide.celluleGauche;
+                    }
+                    break;
+            }
+        }
+        System.out.println("------------------");
+        this.print();
     }
 }

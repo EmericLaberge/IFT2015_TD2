@@ -41,13 +41,6 @@ public class Node {
         } else {
             this.next = null;
         }
-
-        // A voir !!
-        // } else if (this.next.next == null) {
-        // this.next = null;
-        // return;
-        // }
-        // this.next.removeLast();
     }
 
     // Status : Works except cant remove first element
@@ -94,14 +87,6 @@ public class Node {
         }
         return 0;
     }
-
-    // public int length_recurssion() {
-    // if (this.next != null) {
-    // this.next = this.next.next;
-    // return 1 + length_recurssion();
-    // }
-    // return 0;
-    // }
 
     // Status : WORKS !
     public int returnNlast(int nLast) {
