@@ -1,3 +1,4 @@
+// Travail réalisé par : Emeric Laberge (20220275) et Karl Desjardins (20196433)
 
 public class App {
     public static void main(String[] args) throws Exception {

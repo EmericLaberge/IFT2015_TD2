@@ -1,5 +1,6 @@
-import java.util.Random;
+// Travail réalisé par : Emeric Laberge (20220275) et Karl Desjardins (20196433)
 
+import java.util.Random;
 public class Grid {
     public class Cell {
 
