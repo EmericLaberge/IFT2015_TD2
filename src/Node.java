@@ -165,6 +165,5 @@ public class Node {
             }
         }
         System.out.print(word);
-        System.out.println("ALLO GIT CEST MAGNIFIQUE");
     }
 }

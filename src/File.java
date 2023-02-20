@@ -1,121 +1,94 @@
+
 public class File {
     public int[] elements;
     public int start;
     public int end;
+    private int maxSize = 100;
+    private boolean lastIsPop = true;
 
     public File() {
-        elements = new int[101];
+        elements = new int[maxSize];
         start = 0;
-        end = 0;
+        end = 0; // Le rear doit indexer immédiatement après le dernier élément
         return;
-    }
-
-    // Fonction tirée des notes de cours
-    public int size() {
-        return (end - start + elements.length) % elements.length;
     }
 
     // Status: Works ?(PS: not sure it works)
     // Can we use .length ?
     public void push(int element) {
-        if (this.size() == elements.length - 1) {
-            // throw IllegalStateException;
-            System.out.println("La file est pleine!");
-        } else {
+        if (this.length() != maxSize) {
             elements[end] = element;
-            end = (end + 1) % elements.length;
+            end = (end + 1) % maxSize;
+            this.lastIsPop = false;
+        } else {
+            throw new RuntimeException("La file est déjà remplie au maximum!");
         }
     }
 
     public int pop() {
-        if (this.size() == 0) {
-            System.out.println("Tu ne peux pas pop une liste vide!");
-            return 0;
+        if (!this.estVide()) {
+            int element = elements[start];
+            start = (start + 1) % maxSize;
+            this.lastIsPop = true;
+            return element;
         } else {
-            int elementToPop = elements[start];
-            elements[start] = 0;
-            start = (start + 1) % elements.length;
-            return elementToPop;
+            throw new RuntimeException("On ne peut pas pop une file est vide!");
         }
     }
 
-    // Status : Works!
     public int length() {
-        if (start == end) {
-            return size();
+        if (start == end && this.lastIsPop == false) {
+            return 100;
         } else {
-            if (end - start == -1) {
-                return 0;
-            } else {
-                return end - start;
-            }
+            return (end - start + maxSize) % maxSize;
         }
+    }
+
+    public boolean estVide() {
+        return this.length() == 0;
     }
 
     public void print() {
-        String word = "(";
-        if (start > end) {
-            for (int i = start; i < elements.length; i++) {
-                if (i == elements.length - 1) {
-                    word = word + elements[i];
-                } else {
-                    word = word + elements[i] + ",";
-                }
+        if (!this.estVide()) {
+            System.out.print("(");
+            for (int i = 0; i < this.length() - 1; i++) {
+                int current = this.pop();
+                System.out.print(current + ", ");
+                this.push(current);
             }
-            if (end > 0) {
-                word += ",";
-            }
-            for (int i = 0; i < end; i++) {
-                if (i == end - 1) {
-                    word = word + elements[i];
-                } else {
-                    word = word + elements[i] + ",";
-                }
-            }
-        } else {
-            for (int i = start; i < end; i++) {
-                if (i == end - 1) {
-                    word = word + elements[i];
-                } else {
-                    word = word + elements[i] + ",";
-                }
-            }
+            int current = this.pop();
+            System.out.print(current + ")");
+            this.push(current);
         }
-        word += ")";
-        System.out.println(word);
-        return;
+
     }
 
-    public boolean search(int element) {
+    public boolean search(int value) {
         boolean estDansListe = false;
-        int x = 0;
-        for (int i = 0; i < elements.length - 1; i++) {
-            x = this.pop();
-            if (x == element) {
+        int current;
+        for (int i = 0; i < this.length(); i++) {
+            current = this.pop();
+            if (current == value) {
                 estDansListe = true;
             }
-            this.push(x);
+            this.push(current);
         }
         return estDansListe;
     }
 
     public void remove(int value) {
-        int x = 0;
-        if (start > end) {
-            for (int i = 1; i < elements.length - 1; i++) {
-                x = this.pop();
-                if (x != value) {
-                    this.push(x);
-                }
-            }
-        } else {
-            for (int i = 0; i < elements.length - 1; i++) {
-                x = this.pop();
-                if (x != value) {
-                    this.push(x);
-                }
+        boolean alreadyFound = false;
+        if (this.estVide()) {
+            return;
+        }
+        int currentSize = this.length();
+        for (int i = 0; i < currentSize; i++) {
+            int current = this.pop();
+            if (current == value && !alreadyFound) {
+                alreadyFound = true;
+            } else {
+                this.push(current);
             }
         }
-        return;
     }
 }
