@@ -33,7 +33,7 @@ public class Node {
     // Status : WORKS!
     public void removeLast() {
         if (this.next == null) {
-            System.out.println("Un seul element dans la liste , ne peut etre enlever!");
+            System.out.println("Impossible de supprimer le premier element de la liste!");
             return;
         }
         if (this.next.next != null) {
@@ -45,6 +45,10 @@ public class Node {
 
     // Status : Works except cant remove first element
     public void removeValue(int value) {
+        if (this.value == value && this.length_recurssion() == 1) {
+            System.out.println("Impossible de supprimer le premier element de la liste!");
+            return;
+        }
         if (this.value == value) {
             this.value = this.next.value;
             this.next = this.next.next;
@@ -88,16 +92,27 @@ public class Node {
         return 0;
     }
 
-    // Status : WORKS !
+    // Status : WORKS!
     public int returnNlast(int nLast) {
-        Node first = this;
         Node current = this;
-        int compteur = 1;
-        while (current.value != nLast && current.next != null) {
-            current = current.next;
-            ++compteur;
+        if (nLast < 0) {
+            System.out.println("Les nombres de nLast sont strictement positifs!");
+            for (int i = 0; i < this.length_recurssion() - 1; i++) {
+                current = current.next;
+            }
         }
-        return first.length_recurssion() - compteur + 1;
+
+        else if (nLast > this.length_recurssion()) {
+            System.out.println("On ne peut pas reculer plus que la longueur de la liste!");
+            for (int i = 0; i < this.length_recurssion() - 1; i++) {
+                current = current.next;
+            }
+        } else {
+            for (int i = 0; i < this.length_recurssion() - nLast; i++) {
+                current = current.next;
+            }
+        }
+        return current.value;
     }
 
     // Status : Works !!
@@ -127,7 +142,7 @@ public class Node {
                 nodepremier.addValue_ordered(current.value);
                 current = current.next;
             }
-            if(current.next == null){
+            if (current.next == null) {
                 nodepremier.addValue_ordered(current.value);
             }
         }

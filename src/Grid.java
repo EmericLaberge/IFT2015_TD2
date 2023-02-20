@@ -60,15 +60,6 @@ public class Grid {
             tabCell[i].valeur = array[i];
         }
 
-        // Fonction pour print avant les assignations de references.
-        // for (int i = 0; i < tabCell.length; i++) {
-        // System.out.print(tabCell[i].valeur);
-        // System.out.print(" -> ");
-        // if ((i + 1) % 4 == 0) {
-        // System.out.println(" ");
-        // }
-        // }
-
         assignerCelluleAuGrid(tabCell, 0, 4, false);
         assignerCelluleAuGrid(tabCell, 4, 8, true);
         assignerCelluleAuGrid(tabCell, 8, 12, false);
